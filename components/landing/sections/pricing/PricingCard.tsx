@@ -41,7 +41,7 @@ const BestValue = ({disabled}: { disabled: boolean }) => {
   }
   return <>
     <div className={'h-[40px]'}/>
-    <p className={'w-[130px] h-[43px] flex justify-center items-center rounded-[18px] font-medium text-[18px]'}
+    <p className={'w-[130px] h-[43px] flex justify-center items-center rounded-[18px] font-medium'}
        style={{color: '#00b2c8', backgroundColor: '#00b2c80f'}}>
       Best Value
     </p>
@@ -77,7 +77,7 @@ const List = ({pricingOption}: ThisProps) => {
         {content[pricingOption].list.map(item => (
           <Fragment key={item}>
             <div className={'h-[13px]'}/>
-            <li className={'text-[18px] leading-[150%]'}>{item}</li>
+            <li className={'leading-[150%]'}>{item}</li>
           </Fragment>
         ))}
       </ul>
@@ -89,7 +89,7 @@ const Action = ({pricingOption}: ThisProps) => {
   if (pricingOption === PricingOptions.Hero) {
     return (
       <div className={'w-[140px] h-[43px] flex justify-center items-center rounded-[18px] font-semibold text-white'}
-      style={{backgroundColor: '#00b2c8'}}>
+           style={{backgroundColor: '#00b2c8'}}>
         Get started
       </div>
     )
@@ -98,6 +98,17 @@ const Action = ({pricingOption}: ThisProps) => {
     <div className={'w-[140px] h-[43px] flex justify-center items-center border-2 rounded-[18px] font-semibold'}>
       Get started
     </div>
+  )
+}
+
+const HelperText = ({pricingOption}: ThisProps) => {
+  if (pricingOption !== PricingOptions.Explorer) {
+    return null
+  }
+  return (
+    <p className={'text-[14px] font-medium'} style={{ color: '#00b2c8'}}>
+      Try 7 days for free
+    </p>
   )
 }
 
@@ -115,5 +126,7 @@ export const PricingCard = ({pricingOption}: ThisProps) => (
     <List pricingOption={pricingOption}/>
     <div className={'h-[31px]'}/>
     <Action pricingOption={pricingOption}/>
+    <div className={'h-[10px]'}/>
+    <HelperText pricingOption={pricingOption}/>
   </div>
 )
