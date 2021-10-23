@@ -5,14 +5,15 @@ import {FeaturesDropdown} from '../components/landing/sections/features/Features
 import {PricingSection} from '../components/landing/sections/pricing/Pricing'
 import {PricingOptions} from '../enums'
 import {PricingContentRemote} from '../interfaces/pricing'
-import {HOST_NAME} from '../config'
+import {pricing} from '../data/pricing'
 
 interface LandingProps {
   pricingSectionData: Record<PricingOptions, PricingContentRemote>
 }
 
 export async function getStaticProps() {
-  const pricingSectionData = await fetch(`${HOST_NAME}/api/pricing`).then(snapshot => snapshot.json())
+  // data should be remote
+  const pricingSectionData = pricing
 
   return {
     props: {pricingSectionData},
