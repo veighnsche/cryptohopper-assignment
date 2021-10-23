@@ -1,5 +1,6 @@
 import {PricingOptions} from '../enums'
 
+// data should be remote
 export const features = [
   {
     feature: 'Available on all exchanges',

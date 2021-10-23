@@ -1,9 +1,10 @@
-import {Fragment} from 'react'
+import {Fragment, ReactElement} from 'react'
 import {boxShadow} from '../../../../styles/utils/styles'
 import {PricingContent} from '../../../../interfaces/pricing'
 
 interface PricingCardProps {
   content: PricingContent;
+  wave: ReactElement;
 }
 
 const BestValue = ({disabled}: { disabled: boolean }) => {
@@ -79,18 +80,24 @@ const HelperText = ({promo}: Pick<PricingContent, 'promo'>) => {
   )
 }
 
-export const PricingCard = ({content: {forward, name, cost, costPeriod, list, promo}}: PricingCardProps) => (
-  <div className={(forward ? 'h-[590px]' : 'h-[470px]') + ' w-[357px] rounded-[37px] pl-[45px] mx-[15px]'}
-       style={{boxShadow}}>
-    <BestValue disabled={!forward}/>
-    <Name forward={forward} name={name}/>
-    <div className={'h-[15px]'}/>
-    <Price forward={forward} cost={cost} costPeriod={costPeriod}/>
-    <div className={'h-[16px]'}/>
-    <List list={list}/>
-    <div className={'h-[31px]'}/>
-    <Action forward={forward}/>
-    <div className={'h-[10px]'}/>
-    <HelperText promo={promo}/>
-  </div>
-)
+export const PricingCard = ({content: {forward, name, cost, costPeriod, list, promo}, wave}: PricingCardProps) => {
+  const height = forward ? 'h-[590px]' : 'h-[470px]'
+  return (
+    <div className={`${height} bg-white relative w-[357px] rounded-[37px] mx-[15px] z-10`}
+         style={{boxShadow}}>
+      <div className={`${height} absolute flex items-end`}>{wave}</div>
+      <div className={'pl-[45px]'}>
+        <BestValue disabled={!forward}/>
+        <Name forward={forward} name={name}/>
+        <div className={'h-[15px]'}/>
+        <Price forward={forward} cost={cost} costPeriod={costPeriod}/>
+        <div className={'h-[16px]'}/>
+        <List list={list}/>
+        <div className={'h-[31px]'}/>
+        <Action forward={forward}/>
+        <div className={'h-[10px]'}/>
+        <HelperText promo={promo}/>
+      </div>
+    </div>
+  )
+}

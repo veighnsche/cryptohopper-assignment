@@ -2,11 +2,22 @@ import {PricingTitle} from './PricingTitle'
 import {PricingPeriodSwitch} from './PricingPeriodSwitch'
 import {PricingCard} from './PricingCard'
 import {useState} from 'react'
-import {PeriodOptions} from '../../../../enums'
+import {PeriodOptions, PricingOptions} from '../../../../enums'
 import {PricingContentRemote} from '../../../../interfaces/pricing'
+import {PioneerWave} from '../../../utils/waves/Pioneer'
+import {ExplorerWave} from '../../../utils/waves/Explorer'
+import {AdventurerWave} from '../../../utils/waves/Adventurer'
+import {HeroWave} from '../../../utils/waves/Hero'
 
 export interface PricingSectionProps {
   data: PricingContentRemote[];
+}
+
+const waves = {
+  [PricingOptions.PIONEER]: <PioneerWave/>,
+  [PricingOptions.EXPLORER]: <ExplorerWave/>,
+  [PricingOptions.ADVENTURER]: <AdventurerWave/>,
+  [PricingOptions.HERO]: <HeroWave/>,
 }
 
 export const PricingSection = ({data}: PricingSectionProps) => {
@@ -18,7 +29,9 @@ export const PricingSection = ({data}: PricingSectionProps) => {
     <PricingPeriodSwitch periodState={[period, setPeriod]}/>
     <div className={'h-[55px]'}/>
     <div className={'flex justify-around items-center'}>
-      {data.map(c => <PricingCard key={c.name} content={{...c, costPeriod: c.cost?.[period]}}/>)}
+      {data.map(c => {
+        return <PricingCard key={c.id} content={{...c, costPeriod: c.cost?.[period]}} wave={waves[c.id]}/>
+      })}
     </div>
   </>
 }

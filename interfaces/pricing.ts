@@ -6,6 +6,7 @@ interface PeriodCost {
 }
 
 export interface PricingContentRemote {
+  id: PeriodOptions;
   forward: boolean;
   name: string;
   cost: PeriodCost;
