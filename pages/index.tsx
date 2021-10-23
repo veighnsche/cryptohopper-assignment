@@ -39,8 +39,12 @@ const Landing = ({pricingSectionData}: LandingProps) => <>
         <div className={'h-[80px]'}/>
       </div>
     </div>
-    <div className={'w-auto h-[400px]'} style={{backgroundColor: '#F7FDFD'}}>
-      blablalba
+    <div className={'w-auto flex justify-center'} style={{backgroundColor: '#F7FDFD'}}>
+      <div className={'w-[1520px] flex flex-col items-center'}>
+        <div className={'h-[150px]'}/>
+        <p className={'text-[44px] leading-none'}>What successful traders<br/>say about cryptohopper</p>
+        <div className={'h-[290px]'}/>
+      </div>
     </div>
     <div className={'h-[1000px]'}/>
   </div>
