@@ -1,38 +1,9 @@
 import {Fragment} from 'react'
+import {boxShadow} from '../../../../styles/utils/styles'
+import {PricingContent} from '../../../../interfaces/pricing'
 
-export enum PricingOptions {Pioneer, Explorer, Adventurer, Hero}
-
-interface ThisProps {
-  pricingOption: PricingOptions
-}
-
-interface PricingContent {
-  name: string,
-  cost: string,
-  list: string[],
-}
-
-const content: Record<PricingOptions, PricingContent> = {
-  [PricingOptions.Pioneer]: {
-    name: 'Pioneer',
-    cost: null,
-    list: ['20 positions', 'portfolio management', 'manual trading', 'all available exchanges'],
-  },
-  [PricingOptions.Explorer]: {
-    name: 'Explorer',
-    cost: '16.58',
-    list: ['80 positions', 'portfolio management', 'manual trading', 'all available exchanges'],
-  },
-  [PricingOptions.Adventurer]: {
-    name: 'Adventurer',
-    cost: '41.58',
-    list: ['200 positions', 'portfolio management', 'manual trading', 'all available exchanges'],
-  },
-  [PricingOptions.Hero]: {
-    name: 'Hero',
-    cost: '83.25',
-    list: ['500 positions', 'portfolio management', 'manual trading', 'all available exchanges', 'market arbitrage', 'algorithm intelligence'],
-  },
+interface PricingCardProps {
+  content: PricingContent;
 }
 
 const BestValue = ({disabled}: { disabled: boolean }) => {
@@ -49,32 +20,31 @@ const BestValue = ({disabled}: { disabled: boolean }) => {
   </>
 }
 
-const Name = ({pricingOption}: ThisProps) => {
-  if (pricingOption === PricingOptions.Hero) {
-    return <p className={'font-semibold text-[44px] leading-none'}>{content[pricingOption].name}</p>
+const Name = ({forward, name}: Pick<PricingContent, 'forward' | 'name'>) => {
+  if (forward) {
+    return <p className={'font-semibold text-[44px] leading-none'}>{name}</p>
   }
-  return <p className={'font-semibold text-[32px] leading-none'}>{content[pricingOption].name}</p>
+  return <p className={'font-semibold text-[32px] leading-none'}>{name}</p>
 }
 
-const Price = ({pricingOption}: ThisProps) => {
-  if (content[pricingOption].cost === null) {
+const Price = ({cost, forward, costPeriod}: Pick<PricingContent, 'forward' | 'cost' | 'costPeriod'>) => {
+  if (cost === null) {
     return <p className={'text-[32px] leading-none'}>Free</p>
   }
   return (
-    <p className={'text-[32px] leading-none'}
-       style={{fontWeight: pricingOption === PricingOptions.Hero ? 500 : 400}}>
-      <span>${content[pricingOption].cost}</span>
+    <p className={(forward ? 'font-medium' : 'font-normal') + ' text-[32px] leading-none'}>
+      <span>${costPeriod}</span>
       <span className={'text-[22px]'}>/month</span>
     </p>
   )
 }
 
-const List = ({pricingOption}: ThisProps) => {
+const List = ({list}: Pick<PricingContent, 'list'>) => {
   return (
     <div className={'flex'}>
       <div className={'w-[18px]'}/>
       <ul className={'list-disc'}>
-        {content[pricingOption].list.map(item => (
+        {list.map(item => (
           <Fragment key={item}>
             <div className={'h-[13px]'}/>
             <li className={'leading-[150%]'}>{item}</li>
@@ -85,8 +55,8 @@ const List = ({pricingOption}: ThisProps) => {
   )
 }
 
-const Action = ({pricingOption}: ThisProps) => {
-  if (pricingOption === PricingOptions.Hero) {
+const Action = ({forward}: Pick<PricingContent, 'forward'>) => {
+  if (forward) {
     return (
       <div className={'w-[140px] h-[43px] flex justify-center items-center rounded-[18px] font-semibold text-white'}
            style={{backgroundColor: '#00b2c8'}}>
@@ -101,32 +71,26 @@ const Action = ({pricingOption}: ThisProps) => {
   )
 }
 
-const HelperText = ({pricingOption}: ThisProps) => {
-  if (pricingOption !== PricingOptions.Explorer) {
-    return null
-  }
+const HelperText = ({promo}: Pick<PricingContent, 'promo'>) => {
   return (
-    <p className={'text-[14px] font-medium'} style={{ color: '#00b2c8'}}>
-      Try 7 days for free
+    <p className={'text-[14px] font-medium'} style={{color: '#00b2c8'}}>
+      {promo}
     </p>
   )
 }
 
-export const PricingCard = ({pricingOption}: ThisProps) => (
-  <div className={'w-[357px] rounded-[37px] pl-[45px]'}
-       style={{
-         boxShadow: '0px 10px 32px rgba(5, 85, 95, 0.06), 0px 8px 24px rgba(5, 85, 95, 0.04)',
-         height: pricingOption === PricingOptions.Hero ? '590px' : '470px',
-       }}>
-    <BestValue disabled={pricingOption !== PricingOptions.Hero}/>
-    <Name pricingOption={pricingOption}/>
+export const PricingCard = ({content: {forward, name, cost, costPeriod, list, promo}}: PricingCardProps) => (
+  <div className={(forward ? 'h-[590px]' : 'h-[470px]') + ' w-[357px] rounded-[37px] pl-[45px] mx-[15px]'}
+       style={{boxShadow}}>
+    <BestValue disabled={!forward}/>
+    <Name forward={forward} name={name}/>
     <div className={'h-[15px]'}/>
-    <Price pricingOption={pricingOption}/>
+    <Price forward={forward} cost={cost} costPeriod={costPeriod}/>
     <div className={'h-[16px]'}/>
-    <List pricingOption={pricingOption}/>
+    <List list={list}/>
     <div className={'h-[31px]'}/>
-    <Action pricingOption={pricingOption}/>
+    <Action forward={forward}/>
     <div className={'h-[10px]'}/>
-    <HelperText pricingOption={pricingOption}/>
+    <HelperText promo={promo}/>
   </div>
 )

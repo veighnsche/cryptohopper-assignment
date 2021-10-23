@@ -1,12 +1,25 @@
 import Head from 'next/head'
 import {NavTop} from '../components/landing/NavTop'
-import {PricingCard, PricingOptions} from '../components/landing/sections/pricing/PricingCard'
-import {PricingPeriodSwitch} from '../components/landing/sections/pricing/PricingPeriodSwitch'
-import {PricingTitle} from '../components/landing/sections/pricing/PricingTitle'
 import {FeaturesTitle} from '../components/landing/sections/features/FeaturesTitle'
 import {FeaturesDropdown} from '../components/landing/sections/features/FeaturesDropdown'
+import {PricingSection} from '../components/landing/sections/pricing/Pricing'
+import {PricingOptions} from '../enums'
+import {PricingContentRemote} from '../interfaces/pricing'
+import {HOST_NAME} from '../config'
 
-const Landing = () => (
+interface LandingProps {
+  pricingSectionData: Record<PricingOptions, PricingContentRemote>
+}
+
+export async function getStaticProps() {
+  const pricingSectionData = await fetch(`${HOST_NAME}/api/pricing`).then(snapshot => snapshot.json())
+
+  return {
+    props: {pricingSectionData},
+  }
+}
+
+const Landing = ({pricingSectionData}: LandingProps) => (
   <div className={'flex justify-center'}>
     <div className={'w-[1920px]'}>
       <Head>
@@ -17,21 +30,9 @@ const Landing = () => (
       </Head>
 
       <NavTop/>
-      <div className={'h-[143px]'}/>
       <div className={'flex flex-col items-center'}>
-        <PricingTitle/>
-        <div className={'h-[40px]'}/>
-        <PricingPeriodSwitch/>
-        <div className={'h-[55px]'}/>
-        <div className={'flex justify-around items-center'}>
-          <PricingCard pricingOption={PricingOptions.Pioneer}/>
-          <div className={'w-[30px]'}/>
-          <PricingCard pricingOption={PricingOptions.Explorer}/>
-          <div className={'w-[30px]'}/>
-          <PricingCard pricingOption={PricingOptions.Adventurer}/>
-          <div className={'w-[30px]'}/>
-          <PricingCard pricingOption={PricingOptions.Hero}/>
-        </div>
+        <div className={'h-[143px]'}/>
+        <PricingSection data={Object.values(pricingSectionData)}/>
         <div className={'h-[173px]'}/>
         <FeaturesTitle/>
         <div className={'h-[37px]'}/>
