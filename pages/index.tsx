@@ -32,17 +32,15 @@ const Landing = ({pricingSectionData, featuresSectionData}: LandingProps) => <>
     <link rel="icon" href="/favicon.ico"/>
   </Head>
 
-  <div className={'z-0'}>
-    <div className={'absolute top-[441px] z-0'}>
-      <PricingSectionWave/>
-    </div>
-
-    <div className={'absolute top-[400px] left-[400px] z-0'}>
-      <PricingSectionPebbles/>
-    </div>
+  <div className={'absolute top-[441px] z-0'}>
+    <PricingSectionWave/>
   </div>
 
-  <div className={'flex flex-col z-10'}>
+  <div className={'absolute top-[400px] left-[400px] z-0'}>
+    <PricingSectionPebbles/>
+  </div>
+
+  <div className={'relative flex flex-col z-10'}>
     <div className={'flex justify-center'}>
       <div className={'w-[1520px]'}>
         <NavTop/>

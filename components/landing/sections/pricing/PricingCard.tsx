@@ -86,7 +86,7 @@ export const PricingCard = ({content: {forward, name, cost, costPeriod, list, pr
     <div className={`${height} bg-white relative w-[357px] rounded-[37px] mx-[15px] z-10`}
          style={{boxShadow}}>
       <div className={`${height} absolute flex items-end`}>{wave}</div>
-      <div className={'pl-[45px]'}>
+      <div className={'relative z-20 pl-[45px]'}>
         <BestValue disabled={!forward}/>
         <Name forward={forward} name={name}/>
         <div className={'h-[15px]'}/>
