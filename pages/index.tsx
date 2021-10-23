@@ -7,7 +7,7 @@ import {FeaturesSection} from '../components/landing/sections/features/Features'
 import {ReviewsSection} from '../components/landing/sections/reviews/Reviews'
 import {features} from '../data/features'
 import {Feature} from '../interfaces/feature'
-import {PricingSectionWave} from '../components/utils/waves/PricingSection'
+import {PricingSectionWave} from '../components/utils/svg/waves/PricingSection'
 import {PricingSectionPebbles} from '../components/utils/svg/PricingSectionPebbles'
 
 interface LandingProps {

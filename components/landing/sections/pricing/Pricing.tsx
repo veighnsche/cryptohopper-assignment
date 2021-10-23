@@ -4,10 +4,10 @@ import {PricingCard} from './PricingCard'
 import {useState} from 'react'
 import {PeriodOptions, PricingOptions} from '../../../../enums'
 import {PricingContentRemote} from '../../../../interfaces/pricing'
-import {PioneerWave} from '../../../utils/waves/Pioneer'
-import {ExplorerWave} from '../../../utils/waves/Explorer'
-import {AdventurerWave} from '../../../utils/waves/Adventurer'
-import {HeroWave} from '../../../utils/waves/Hero'
+import {PioneerWave} from '../../../utils/svg/waves/Pioneer'
+import {ExplorerWave} from '../../../utils/svg/waves/Explorer'
+import {AdventurerWave} from '../../../utils/svg/waves/Adventurer'
+import {HeroWave} from '../../../utils/svg/waves/Hero'
 
 export interface PricingSectionProps {
   data: PricingContentRemote[];
