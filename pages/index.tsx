@@ -11,6 +11,7 @@ import {PricingSectionWave} from '../components/utils/svg/waves/PricingSection'
 import {ReviewsCards} from '../components/landing/sections/reviews/ReviewsCards'
 import {reviews} from '../data/reviews'
 import {Review} from '../interfaces/review'
+import {ReviewSectionWaves} from '../components/utils/svg/waves/ReviewSection'
 
 interface LandingProps {
   pricingSectionData: PricingContentRemote[];
@@ -54,9 +55,14 @@ const Landing = ({pricingSectionData, featuresSectionData, reviewsSectionData}: 
       </div>
     </div>
     <div className={'w-auto flex flex-col items-center'} style={{backgroundColor: '#F7FDFD'}}>
-      <div className={'h-[150px]'}/>
-      <ReviewsSection data={reviewsSectionData}/>
-      <div className={'h-[290px]'}/>
+      <div className={'absolute z-20'}>
+        <ReviewSectionWaves/>
+      </div>
+      <div className={'relative z-30'}>
+        <div className={'h-[150px]'}/>
+        <ReviewsSection data={reviewsSectionData}/>
+        <div className={'h-[290px]'}/>
+      </div>
     </div>
     <div className={'h-[1000px]'}/>
   </div>
