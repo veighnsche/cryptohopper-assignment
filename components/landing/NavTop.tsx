@@ -13,7 +13,7 @@ export const NavTop = () => (
       <li className={'px-4'}>Company</li>
     </ul>
 
-    <ul className={'w-[400px] flex items-center'}>
+    <ul className={'w-[400px] flex items-center justify-end'}>
       <li className={'px-4'}>Log in</li>
       <li className={'px-4 py-1 border-2 rounded-[18px]'}>Signup</li>
     </ul>

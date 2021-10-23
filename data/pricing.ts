@@ -1,5 +1,6 @@
 import {PeriodOptions, PricingOptions} from '../enums'
 
+// data should be remote
 export const pricing = {
   [PricingOptions.PIONEER]: {
     forward: false,
